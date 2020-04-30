@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          SFDC Floater
 // @namespace     http://SamStevenM.com/
-// @version       0.003
+// @version       0.004
 // @description   SFDC Link Floater
 // @match         https://lutron.my.salesforce.com/*
 // @match         https://lutron.lightning.force.com/*
@@ -64,14 +64,17 @@ jQuery(function($){
 
     $('#copycal').click(function(e) {
         localStorage.setItem("ls_href", "HREF_DID_NOT_SET"); // Store
+        localStorage.setItem("ls_cal_Date", "CAL_COMMENTS_DID_NOT_SET"); // Store
         localStorage.setItem("ls_cal_Subject", "CAL_SUBJECT_DID_NOT_SET"); // Store
         localStorage.setItem("ls_cal_Comments", "CAL_COMMENTS_DID_NOT_SET"); // Store
 
         var cal_href = $(location).attr('href');
+        var cal_Date = $('#StartDateTime_ileinner').text();
         var cal_Subject = $('#evt5_ileinner').text();
         var cal_Comments = $('#evt6_ileinner').text();
 
         localStorage.setItem("ls_href", cal_href); // Store
+        localStorage.setItem("ls_cal_Date", cal_Date); // Store
         localStorage.setItem("ls_cal_Subject", cal_Subject); // Store
         localStorage.setItem("ls_cal_Comments", cal_Comments); // Store
         alert (cal_href+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
@@ -86,12 +89,14 @@ jQuery(function($){
 
     $('#pastecal').click(function(e) {
         var cal_href = localStorage.getItem("ls_href");
+        var cal_Date = localStorage.getItem("ls_cal_Date").split("/")[0];
         var cal_Subject = localStorage.getItem("ls_cal_Subject");
         var cal_Comments = localStorage.getItem("ls_cal_Comments");
         var orig_comments= $("textarea#tsk6").val()
 
         var subj = $('#subj').find(":selected").text(); //uri encoded object selected in dropdown
         $("#tsk5").val(subj)
+        $("#tsk4").val(cal_Date)
         $("textarea#tsk6").val(orig_comments +'\r\nSFDC Link: '+ cal_href+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
 
         e.preventDefault();
