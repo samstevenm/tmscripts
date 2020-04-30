@@ -23,7 +23,7 @@ jQuery(function($){
     });
 
     //var html = '<div id = "draggableDiv_links"></div>';
-    var html = '<div id = "draggableDiv_links" class = "ui-widget-content" style="position:absolute;bottom:0px;z-index:'+_highest+';left:0px;background:#FFF;border:1px solid #000000;border-radius:10px;height:150px;width:190px;"><center>SalesForce Sux<BR><BR></div>';
+    var html = '<div id="draggableDiv_links" class="ui-widget-content" style="position:absolute;bottom:0px;z-index:'+_highest+';left:0px;background:#FFF;border:1px solid #000000;border-radius:10px;height:150px;width:190px;"><center>SFDC Sux<BR><BR></div>';
     var callselect ='<center><label for="subj">Call Subject:</label><select id="subj">'+
         '<option value="Personal Development">Personal Development</option>'+
         '<option value="Rep Engagement">Rep Engagement</option>'+
@@ -127,7 +127,6 @@ jQuery(function($){
        }
         e.preventDefault();
     });
-
 
 
 });
