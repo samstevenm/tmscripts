@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          SFDC Floater
 // @namespace     http://SamStevenM.com/
-// @version       0.004
+// @version       0.005
 // @description   SFDC Link Floater
 // @match         https://lutron.my.salesforce.com/*
 // @match         https://lutron.lightning.force.com/*
@@ -77,7 +77,7 @@ jQuery(function($){
         localStorage.setItem("ls_cal_Date", cal_Date); // Store
         localStorage.setItem("ls_cal_Subject", cal_Subject); // Store
         localStorage.setItem("ls_cal_Comments", cal_Comments); // Store
-        alert (cal_href+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
+        alert (cal_href+'\r\nCalendar Date_Time: '+cal_Date+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
 //         var sfid = $(location).attr('href').split("/").pop();
 //         var subj = encodeURI($('#subj').find(":selected").text()); //uri encoded object selected in dropdown
 //         var sfid = $(location).attr('href').split("/").pop();
@@ -89,15 +89,18 @@ jQuery(function($){
 
     $('#pastecal').click(function(e) {
         var cal_href = localStorage.getItem("ls_href");
-        var cal_Date = localStorage.getItem("ls_cal_Date").split("/")[0];
+        var cal_Date = localStorage.getItem("ls_cal_Date")
         var cal_Subject = localStorage.getItem("ls_cal_Subject");
         var cal_Comments = localStorage.getItem("ls_cal_Comments");
         var orig_comments= $("textarea#tsk6").val()
 
         var subj = $('#subj').find(":selected").text(); //uri encoded object selected in dropdown
         $("#tsk5").val(subj)
-        $("#tsk4").val(cal_Date)
-        $("textarea#tsk6").val(orig_comments +'\r\nSFDC Link: '+ cal_href+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
+        $("#tsk4").val(cal_Date.split(" ")[0]); //SFDC field has date and then time after a space, I only want the date
+        $("textarea#tsk6").val(orig_comments +'\r\nSFDC Link: '+cal_href+
+                                    '\r\nCalendar Date_Time: '+cal_Date+
+                                    '\r\nCalendar Subject: '+cal_Subject+
+                                    '\r\nCalendar Comments: '+cal_Comments);
 
         e.preventDefault();
 
