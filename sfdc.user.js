@@ -8,6 +8,7 @@
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js
 // @require       http://code.jquery.com/ui/1.9.2/jquery-ui.js
 // @updateURL     https://github.com/samstevenm/tmscripts/raw/master/sfdc.user.js
+// @downloadURL     https://github.com/samstevenm/tmscripts/raw/master/sfdc.user.js
 
 // @copyright  2020, Sam Myers
 // ==/UserScript==
