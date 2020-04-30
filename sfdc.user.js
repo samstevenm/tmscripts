@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          SFDC Floater
 // @namespace     http://SamStevenM.com/
-// @version       0.002
+// @version       0.003
 // @description   SFDC Link Floater
 // @match         https://lutron.my.salesforce.com/*
 // @match         https://lutron.lightning.force.com/*
