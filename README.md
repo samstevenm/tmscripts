@@ -1,1 +1,2 @@
-# ahkscripts
+# tmscripts
+scripts for tamper monkey
