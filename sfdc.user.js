@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          SFDC Floater
 // @namespace     http://SamStevenM.com/
-// @version       0.005
+// @version       0.006
 // @description   SFDC Link Floater
 // @match         https://lutron.my.salesforce.com/*
 // @match         https://lutron.lightning.force.com/*
@@ -35,19 +35,16 @@ jQuery(function($){
 
     var copycal ='<center><input value="Copy Calendar" id="copycal" type="button"></center>';
     var pastecal ='<center><input value="Paste Calendar" id="pastecal" type="button"></center>';
-
+    var logacall ='<center><input value="Log A Call" id="logacall" type="button"></center>';
 
     $("body").prepend(html);
 
-    //$('<center><a href="#" class="send_email">Send email</a><BR>').appendTo('#draggableDiv_links');
     $(callselect).appendTo('#draggableDiv_links');
     $(copycal).appendTo('#draggableDiv_links');
     $(pastecal).appendTo('#draggableDiv_links');
+    $(logacall).appendTo('#draggableDiv_links');
 
     $("#draggableDiv_links").draggable(); //make it draggable
-
-   localStorage.setItem("default_home", "Miami, FL"); // Store
-
 
     $('#draggableDiv_links').mouseup(function() {
         //alert('Set the x and y values using GM_getValue.');
@@ -78,12 +75,7 @@ jQuery(function($){
         localStorage.setItem("ls_cal_Subject", cal_Subject); // Store
         localStorage.setItem("ls_cal_Comments", cal_Comments); // Store
         alert (cal_href+'\r\nCalendar Date_Time: '+cal_Date+'\r\nCalendar Subject: '+cal_Subject+'\r\nCalendar Comments: '+cal_Comments);
-//         var sfid = $(location).attr('href').split("/").pop();
-//         var subj = encodeURI($('#subj').find(":selected").text()); //uri encoded object selected in dropdown
-//         var sfid = $(location).attr('href').split("/").pop();
-//         var call = '/00T/e?title='+subj+'&amp;who_id='+sfid+'&followup=1&amp;tsk5='+subj+'&amp;retURL=%2'+sfid;
-//         var callurl = 'https://lutron.my.salesforce.com/'+ call
-//         window.open(callurl);
+
         e.preventDefault();
     });
 
@@ -98,7 +90,7 @@ jQuery(function($){
         $("#tsk5").val(subj)
         $("#tsk4").val(cal_Date.split(" ")[0]); //SFDC field has date and then time after a space, I only want the date
         $("textarea#tsk6").val(orig_comments +'\r\nSFDC Link: '+cal_href+
-                                    '\r\nCalendar Date_Time: '+cal_Date+
+                                    '\r\nCalendar Date_Time: '+cal_Date.split("    ")[0]+
                                     '\r\nCalendar Subject: '+cal_Subject+
                                     '\r\nCalendar Comments: '+cal_Comments);
 
@@ -108,6 +100,10 @@ jQuery(function($){
 
     $('#logcall').click(function(e) {
         var subj = $('#subj').find(":selected").text(); //uri encoded object selected in dropdown
+        var contact = $("#tsk2").val();
+        if (contact.length == 0) { //if the contact is blank
+          var contact = 'Sam Myers' //relate it to me
+        }
         $("#tsk5").val(subj)
         var type = $("#tsk3_mlktp").val();
         var proj = $("#tsk3").val();
@@ -126,16 +122,25 @@ jQuery(function($){
                                    'In-Fixture Controls – (then text)\r\n'+
                                    'Other – (then text)\r\n');
         } else if (subj == 'Personal Development') {
-            $("textarea#tsk6").val('Call with PERSON to discuss SUBJECT');
+            var contact = $("#tsk2").val();
+            $("textarea#tsk6").val('Call with '+contact+ ' to discuss SUBJECT');
             $("#tsk3_mlktp").val('001');
             $("#tsk3").val('Lutron Electronics, Coopersburg, PA, USA');
-            $("#tsk2").val('Sam Myers');
 
         } else {
-            $("textarea#tsk6").val('Call with PERSON to discuss SUBJECT');
+            $("textarea#tsk6").val('Call with '+contact+ ' to discuss SUBJECT');
        }
         e.preventDefault();
     });
 
+    $('#logacall').click(function(e) {
+        var sfid = $(location).attr('href').split("/").pop();
+        var subj = encodeURI($('#subj').find(":selected").text()); //uri encoded object selected in dropdown
+        var sfid = $(location).attr('href').split("/").pop();
+        var call = '/00T/e?title='+subj+'&amp;who_id='+sfid+'&followup=1&amp;tsk5='+subj+'&amp;retURL=%2'+sfid;
+        var callurl = 'https://lutron.my.salesforce.com/'+ call
+        window.location(callurl);
+        e.preventDefault();
+    });
 
 });
