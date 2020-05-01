@@ -138,8 +138,8 @@ jQuery(function($){
         var subj = encodeURI($('#subj').find(":selected").text()); //uri encoded object selected in dropdown
         var sfid = $(location).attr('href').split("/").pop();
         var call = '/00T/e?title='+subj+'&amp;who_id='+sfid+'&followup=1&amp;tsk5='+subj+'&amp;retURL=%2'+sfid;
-        var callurl = 'https://lutron.my.salesforce.com/'+ call
-        window.location.href(callurl);
+        var callurl = 'https://lutron.my.salesforce.com/'+ call;
+        window.location.href = callurl;
         e.preventDefault();
     });
 
