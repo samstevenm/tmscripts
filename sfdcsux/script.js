@@ -105,9 +105,9 @@ $(document).ready(function($) {
       $("#tsk5").val(subj)
       $("#tsk4").val(cal_Date.split(" ")[0]); //SFDC field has date and then time after a space, I only want the date
       $("textarea#tsk6").val(orig_comments +'\r\nSFDC Link: '+cal_href+
-                                  '\r\nCalendar Date_Time: '+cal_Date.split("    ")[0]+
-                                  '\r\nCalendar Subject: '+cal_Subject+
-                                  '\r\nCalendar Comments: '+cal_Comments);
+                                  '\r\nCalendar Date_Time: '+cal_Date.split(" ")[0]+
+                                  '\r\nCalendar Subject: '+cal_Subject
+                                  //'\r\nCalendar Comments: '+cal_Comments); commenting for now since it breaks report
 
       e.preventDefault();
 
